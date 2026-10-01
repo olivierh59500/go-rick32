@@ -352,7 +352,9 @@ func (g *Core) entActVis(frow, lrow int) {
 		e.X = mark.XY & 0xf8
 		y := (mark.XY & 0x07) + (mark.Row & 0xf8) - g.mapFRow
 		y <<= 3
-		if e.Flags&entFlgStopRick == 0 {
+		// The native floor-aligned hazards omit the ordinary three-pixel inset.
+		floorAligned := mark.Entity == 0x25 || mark.Entity == 0x2b || mark.Entity == 0x2c || mark.Entity == 0x2e || mark.Entity == 0x31
+		if e.Flags&entFlgStopRick == 0 && !floorAligned {
 			y += 3
 		}
 		e.Y = y
@@ -368,6 +370,11 @@ func (g *Core) entActVis(frow, lrow int) {
 		const triggers = entFlgTrigBomb | entFlgTrigBullet | entFlgTrigStop | entFlgTrigRick
 		if e.Flags&triggers == triggers && slot >= 0x09 {
 			e.SprBase = info.SNI & 0x00ff
+			// Rick32 selects its alternate guard bank when this field is zero.
+			// Zero is the player bank, so retaining it makes guards look like Rick.
+			if e.SprBase == 0 {
+				e.SprBase = 0x2a
+			}
 		}
 		e.TrigX = mark.LT & 0xf8
 		e.Latency = (mark.LT & 0x07) << 5
@@ -728,6 +735,9 @@ func (g *Core) themT1Post(e int) {
 
 func (g *Core) themZombieAction(e int) {
 	ent := &g.entities[e]
+	// Both guard banks have two death frames after their three walk frames.
+	ent.Sprite = ent.SprBase + 3 + (ent.X&4)>>2
+	ent.Flip = false
 	if ent.Y < 0 || ent.Y > 0x0140 {
 		ent.N = 0
 		return
@@ -951,7 +961,10 @@ func (g *Core) themT3Action(e int) {
 				ent.Y = ent.YSave
 				if ent.Y < 0 || ent.Y > 0x140 {
 					ent.N = 0
+					break
 				}
+				// Reload the resting sprite in this update, as the native loop does.
+				continue
 			} else {
 				ent.N = 0
 			}

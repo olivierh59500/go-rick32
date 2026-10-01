@@ -1,8 +1,11 @@
 package engine
 
 import (
+	"bytes"
+	"compress/gzip"
 	"encoding/binary"
 	"github.com/olivierh59500/go-rick32/internal/data"
+	"io"
 	"os"
 	"testing"
 )
@@ -88,5 +91,54 @@ func TestEveryNativeRoom(t *testing.T) {
 			}
 			g.Step(0)
 		}
+	}
+}
+
+// This fixture comes from executing the original x86 entity routines, rather
+// than from the Go implementation. It includes both guard banks and deaths.
+func TestNativeEnemyAndItemSprites(t *testing.T) {
+	d, err := data.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	compressed, err := os.ReadFile("testdata/native-entities.bin.gz")
+	if err != nil {
+		t.Fatal(err)
+	}
+	reader, err := gzip.NewReader(bytes.NewReader(compressed))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer reader.Close()
+	reference, err := io.ReadAll(reader)
+	if err != nil {
+		t.Fatal(err)
+	}
+	g := New(d)
+	offset := 0
+	checked := 0
+	for tick, input := range d.Demo[:2238] {
+		g.Step(input)
+		for offset < len(reference) && int(int16(binary.LittleEndian.Uint16(reference[offset:]))) == tick {
+			var expected [9]int
+			for k := range expected {
+				expected[k] = int(int16(binary.LittleEndian.Uint16(reference[offset+k*2:])))
+			}
+			slot := expected[1]
+			entity := g.entities[slot]
+			flip := 0
+			if entity.Flip {
+				flip = 1
+			}
+			got := [9]int{tick, slot, entity.N, entity.Mark, entity.X, entity.Y, entity.Sprite, entity.SprBase, flip}
+			if got != expected {
+				t.Fatalf("native entity sample: got %v want %v", got, expected)
+			}
+			offset += 18
+			checked++
+		}
+	}
+	if offset != len(reference) || checked != 7261 {
+		t.Fatalf("checked %d samples, expected 7261", checked)
 	}
 }

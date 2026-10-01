@@ -11,6 +11,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/vector"
 	"github.com/olivierh59500/democonstructionkit/render"
+	"github.com/olivierh59500/go-rick32/internal/controls"
 	"github.com/olivierh59500/go-rick32/internal/data"
 	"github.com/olivierh59500/go-rick32/internal/engine"
 )
@@ -51,6 +52,9 @@ type Game struct {
 	elapsed, modeAge, pageAge, cameraAge, cameraStart float64
 	pageIndex                                         int
 	paused                                            bool
+	joystick                                          controls.Joystick
+	touchSamples                                      []controls.Touch
+	controlsWidth                                     int
 	buttons                                           []button
 	touches                                           []ebiten.TouchID
 	layoutWidth                                       int
@@ -312,10 +316,29 @@ func (g *Game) input() (byte, string) {
 	}
 	g.ensureControls()
 	g.touches = ebiten.AppendTouchIDs(g.touches[:0])
+	g.touchSamples = g.touchSamples[:0]
+	for _, id := range g.touches {
+		x, y := ebiten.TouchPosition(id)
+		g.touchSamples = append(g.touchSamples, controls.Touch{ID: int(id), X: float64(x), Y: float64(y), Pressed: inpututil.TouchPressDuration(id) == 1})
+	}
+	g.joystick.Update(g.touchSamples)
+	if g.joystick.X < 0 {
+		input |= engine.Left
+	} else if g.joystick.X > 0 {
+		input |= engine.Right
+	}
+	if g.joystick.Y < 0 {
+		input |= engine.Up
+	} else if g.joystick.Y > 0 {
+		input |= engine.Down
+	}
 	for i := range g.buttons {
 		b := &g.buttons[i]
 		held := false
 		for _, id := range g.touches {
+			if g.joystick.Owns(int(id)) {
+				continue
+			}
 			x, y := ebiten.TouchPosition(id)
 			if image.Pt(x, y).In(b.rect) {
 				held = true
@@ -333,16 +356,26 @@ func (g *Game) input() (byte, string) {
 	return input, action
 }
 func (g *Game) ensureControls() {
-	side := (g.layoutWidth - Width) / 2
-	right := g.layoutWidth - side
-	if len(g.buttons) > 0 && g.buttons[0].rect.Min.X == side/2-28 {
+	if g.controlsWidth == g.layoutWidth && len(g.buttons) > 0 {
 		return
 	}
-	x := side / 2
-	g.buttons = []button{{"UP", "", image.Rect(x-28, 270, x+28, 324), engine.Up, false}, {"LEFT", "", image.Rect(x-80, 326, x-26, 382), engine.Left, false}, {"RIGHT", "", image.Rect(x+26, 326, x+80, 382), engine.Right, false}, {"DOWN", "", image.Rect(x-28, 384, x+28, 438), engine.Down, false}, {"FIRE", "", image.Rect(right+side/2-55, 326, right+side/2+55, 402), engine.Fire, false}, {"PLAY", "start", image.Rect(right+18, 60, g.layoutWidth-18, 105), 0, false}, {"DEMO", "demo", image.Rect(right+18, 116, g.layoutWidth-18, 161), 0, false}, {"PAUSE", "pause", image.Rect(right+18, 172, g.layoutWidth-18, 217), 0, false}, {"FILTER", "filter", image.Rect(18, 60, side-18, 105), 0, false}, {"WIRE", "wire", image.Rect(18, 116, side-18, 161), 0, false}, {"RESET", "reset", image.Rect(18, 172, side-18, 217), 0, false}}
+	g.controlsWidth = g.layoutWidth
+	side := (g.layoutWidth - Width) / 2
+	right := g.layoutWidth - side
+	g.joystick.Place(float64(side)/2, 360, math.Min(84, float64(side)/2-12))
+	g.buttons = []button{
+		{"FIRE", "", image.Rect(right+side/2-55, 326, right+side/2+55, 402), engine.Fire, false},
+		{"PLAY", "start", image.Rect(right+18, 60, g.layoutWidth-18, 105), 0, false},
+		{"DEMO", "demo", image.Rect(right+18, 116, g.layoutWidth-18, 161), 0, false},
+		{"PAUSE", "pause", image.Rect(right+18, 172, g.layoutWidth-18, 217), 0, false},
+		{"FILTER", "filter", image.Rect(18, 60, side-18, 105), 0, false},
+		{"WIRE", "wire", image.Rect(18, 116, side-18, 161), 0, false},
+		{"RESET", "reset", image.Rect(18, 172, side-18, 217), 0, false},
+	}
 }
 func (g *Game) drawControls(dst *ebiten.Image) {
 	g.ensureControls()
+	g.drawJoystick(dst)
 	for _, b := range g.buttons {
 		c := color.RGBA{28, 43, 63, 255}
 		if b.held {

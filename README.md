@@ -29,7 +29,7 @@ The game starts in attract mode, with its recorded route and animated credits. P
 ./scripts/run-android.sh
 ```
 
-Add `--build-only` to compile without installing. The ARM64 APK is generated at `android/app/build/outputs/apk/debug/app-debug.apk`. The landscape interface provides a directional pad, Fire, Play, Demo, Pause, Filter, Wire and Reset. Two simultaneous touches combine Fire with Up or Down. The app keeps the screen awake and follows the Android pause/resume lifecycle.
+Add `--build-only` to compile without installing. The ARM64 APK is generated at `android/app/build/outputs/apk/debug/app-debug.apk`. The landscape interface provides an eight-way virtual joystick, Fire, Play, Demo, Pause, Filter, Wire and Reset. Drag the circular thumb control to move or select a diagonal; its center dead zone is neutral, and releasing it stops movement. The stick keeps the same finger while dragging outside its base, so the other thumb can hold Fire. Combine Fire with an upward or downward stick direction to shoot or place a bomb. The app keeps the screen awake and follows the Android pause/resume lifecycle.
 
 ## Video
 

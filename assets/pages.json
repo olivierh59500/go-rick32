@@ -1,0 +1,272 @@
+{
+  "complete": {
+    "hold": 43200.0,
+    "lines": [
+      {
+        "y": 120.0,
+        "text": "CONGRATULATIONS !",
+        "color": "ffffff7f"
+      },
+      {
+        "y": 150.0,
+        "text": "You finish Rick-32Kb !",
+        "color": "ffffffff"
+      },
+      {
+        "y": 200.0,
+        "text": "What did you expect now ?",
+        "color": "ffffffff"
+      },
+      {
+        "y": 230.0,
+        "text": "Maybe the complete game in 64Kb...",
+        "color": "ffffffff"
+      },
+      {
+        "y": 260.0,
+        "text": "Press CONTROL for demo mode",
+        "color": "ffffff7f"
+      },
+      {
+        "y": 310.0,
+        "text": "http://leonard.oxg.free.fr",
+        "color": "ffff7f7f"
+      }
+    ]
+  },
+  "game-over": {
+    "hold": 18.0,
+    "lines": [
+      {
+        "y": 200.0,
+        "text": "GAME OVER",
+        "color": "ffffffff"
+      },
+      {
+        "y": 230.0,
+        "text": "Press CONTROL to try AGAIN !!",
+        "color": "ffffff7f"
+      }
+    ]
+  },
+  "title": {
+    "hold": 8.0,
+    "lines": [
+      {
+        "y": 100.0,
+        "text": "RICK DANGEROUS -32Kb-",
+        "color": "ffffffff"
+      },
+      {
+        "y": 120.0,
+        "text": "(v1.00)",
+        "color": "ff7f7fff"
+      },
+      {
+        "y": 200.0,
+        "text": "PROGRAMMING:",
+        "color": "ffffff7f"
+      },
+      {
+        "y": 220.0,
+        "text": "Arnaud Carre",
+        "color": "ffffffff"
+      },
+      {
+        "y": 240.0,
+        "text": "(Leonard / OXYGENE)",
+        "color": "ffffffff"
+      },
+      {
+        "y": 330.0,
+        "text": "That game use your 3d-card and DirectX8 :-)",
+        "color": "ffffffff"
+      },
+      {
+        "y": 350.0,
+        "text": "http://leonard.oxg.free.fr",
+        "color": "ffffff7f"
+      }
+    ]
+  },
+  "start": {
+    "hold": 1,
+    "lines": [
+      {
+        "y": 200,
+        "text": "LET'S PLAY !",
+        "color": "ffffffff"
+      }
+    ]
+  },
+  "concept": {
+    "hold": 4.0,
+    "lines": [
+      {
+        "y": 120.0,
+        "text": "ORIGINAL GAME CONCEPT",
+        "color": "ffffff7f"
+      },
+      {
+        "y": 140.0,
+        "text": "CORE-Design",
+        "color": "ffffffff"
+      },
+      {
+        "y": 220.0,
+        "text": "GAMEPLAY REVERSE ENGINEERING",
+        "color": "ffffff7f"
+      },
+      {
+        "y": 240.0,
+        "text": "Stephane (Bigorno) Gay",
+        "color": "ffffffff"
+      },
+      {
+        "y": 260.0,
+        "text": "(Author of XRick)",
+        "color": "ffffffff"
+      }
+    ]
+  },
+  "credits": {
+    "hold": 6.0,
+    "lines": [
+      {
+        "y": 200.0,
+        "text": "\"32Kb should be enough for anybody\"",
+        "color": "ffffff7f"
+      },
+      {
+        "y": 230.0,
+        "text": "Leonard, 9 December 2002",
+        "color": "ffffffff"
+      }
+    ]
+  },
+  "sound": {
+    "hold": 8.0,
+    "lines": [
+      {
+        "y": 100.0,
+        "text": "SOUND:",
+        "color": "ffffff7f"
+      },
+      {
+        "y": 130.0,
+        "text": "That 32kb version contains",
+        "color": "ffffffff"
+      },
+      {
+        "y": 160.0,
+        "text": "12 minutes of ATARI-ST tunes",
+        "color": "ffffffff"
+      },
+      {
+        "y": 190.0,
+        "text": "written by Jochen Hippel:",
+        "color": "ffffffff"
+      },
+      {
+        "y": 230.0,
+        "text": "\"Enchanted Lands\" 3'53 (DemoMode)",
+        "color": "ffffff3f"
+      },
+      {
+        "y": 250.0,
+        "text": "\"Wings of Death\" 3'28 (InGame)",
+        "color": "ffffff3f"
+      },
+      {
+        "y": 270.0,
+        "text": "\"Sowatt Demo\" 4'21 (YouWin)",
+        "color": "ffffff3f"
+      },
+      {
+        "y": 290.0,
+        "text": "\"Turrican 2\" 0'21 (GameOver)",
+        "color": "ffffff3f"
+      },
+      {
+        "y": 330.0,
+        "text": "These tunes are played using",
+        "color": "ffffffff"
+      },
+      {
+        "y": 350.0,
+        "text": "my ST-SOUND emulator engine.",
+        "color": "ffffffff"
+      }
+    ]
+  },
+  "commands": {
+    "hold": 6.0,
+    "lines": [
+      {
+        "y": 120.0,
+        "text": "COMMANDS:",
+        "color": "ffffff7f"
+      },
+      {
+        "y": 160.0,
+        "text": "CURSOR KEY to MOVE",
+        "color": "ffffffff"
+      },
+      {
+        "y": 190.0,
+        "text": "CONTROL + UP to FIRE BULLET",
+        "color": "ffffffff"
+      },
+      {
+        "y": 220.0,
+        "text": "CONTROL + DOWN to put BOMB",
+        "color": "ffffffff"
+      },
+      {
+        "y": 260.0,
+        "text": "Special:",
+        "color": "ffffffff"
+      },
+      {
+        "y": 290.0,
+        "text": "F : Toggle texture filtering",
+        "color": "ffffffff"
+      },
+      {
+        "y": 320.0,
+        "text": "W : Wireframe mode ! :-)",
+        "color": "ffffffff"
+      }
+    ]
+  },
+  "features": {
+    "hold": 4.0,
+    "lines": [
+      {
+        "y": 140.0,
+        "text": "COOL Things:",
+        "color": "ffffff7f"
+      },
+      {
+        "y": 180.0,
+        "text": "- 32Kb only windows version",
+        "color": "ffffffff"
+      },
+      {
+        "y": 210.0,
+        "text": "- A demo mode",
+        "color": "ffffffff"
+      },
+      {
+        "y": 240.0,
+        "text": "- High res filtered Rick Gfx :-)",
+        "color": "ffffffff"
+      },
+      {
+        "y": 270.0,
+        "text": "- Quality ATARI music during game",
+        "color": "ffffffff"
+      }
+    ]
+  }
+}

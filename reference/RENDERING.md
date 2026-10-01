@@ -9,3 +9,9 @@ Text pages use an embedded raster atlas generated from Arial Bold, with independ
 All playback goes through DCK's sound API. The five short sound effects and the Turrican 2 game-over register stream were recovered from the executable. The Sowatt victory track was converted to YM by running its native music replay. Enchanted Lands accompanies attract mode; the Wings of Death level-five YM accompanies play. The latter two recordings come from the Atari YM collection. No recorded audio format is required by the game.
 
 The native attract sequence visits four rooms before Rick's scripted final fall at logical step 2,238. All 2,272 player positions, animation indices and flags match execution of the original x86 routines. The final score is 4,395. One intermediate 50-point enemy award is reported one logical update earlier than in the native replay; it does not change the recorded player path or final score. Desktop font rasterization/filtering and the geometry-outline view may differ slightly from the DirectX renderer.
+
+## Desktop, Android and media checks
+
+On 1 October 2026, the complete Go test suite and `go vet ./...` passed. The ARM64 Android package was installed on a Pixel 10a; its native load segments and APK placement passed 16 KiB alignment. Normal attract playback recorded about 59.8–60.2 displayed frames/s, with no observed crash. Automated touch checks remained incomplete when the USB device disconnected.
+
+The portfolio export lasts 180 seconds: 10,800 H.264 frames at 60 frames/s with AAC stereo audio. The web preview contains VP9 at 50 frames/s and Opus stereo audio; both retain the same three-minute timing and 640 × 480 canvas. The final WebM is about 39 MB. The PNG thumbnail is a game frame near the first page exit. Browser checks covered French/English descriptions, game filtering, responsive layout, image loading, seeking and decoded video frames.

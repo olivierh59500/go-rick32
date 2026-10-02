@@ -31,6 +31,22 @@ The game starts in attract mode, with its recorded route and animated credits. P
 
 Add `--build-only` to compile without installing. The ARM64 APK is generated at `android/app/build/outputs/apk/debug/app-debug.apk`. The landscape interface provides an eight-way virtual joystick, Fire, Play, Demo, Pause, Filter, Wire and Reset. Drag the circular thumb control to move or select a diagonal; its center dead zone is neutral, and releasing it stops movement. The stick keeps the same finger while dragging outside its base, so the other thumb can hold Fire. Combine Fire with an upward or downward stick direction to shoot or place a bomb. The app keeps the screen awake and follows the Android pause/resume lifecycle.
 
+## Android release
+
+`./scripts/build-release-android.sh` rebuilds the pinned Go library and produces
+a signed ARM64 release in `.local/release/`, without installing an application.
+It uses `~/.android-keys/malakh-release.p12` and alias `malakh-release` by default;
+`--keystore` and `--alias` select another signing identity. The signing tool asks
+for the password in an interactive terminal. `--password-file` can instead name
+a private local file containing only that password. Keys/passwords are never
+written to project sources or command-line arguments.
+
+`--unsigned-only` builds and validates an aligned release for inspection without
+opening the keystore. Unsigned outputs must not be distributed. The signed APK
+is verified before replacing the preceding output; its SHA-256 file accompanies
+the release. Keep the same application ID and signing key for future updates,
+and increment the native Android version code. The current package is ARM64 only.
+
 ## Video
 
 ```sh

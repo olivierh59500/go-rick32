@@ -23,6 +23,35 @@ The game starts in attract mode, with its recorded route and animated credits. P
 
 `go run . -mute` disables sound; `-fullscreen` starts fullscreen.
 
+<!-- Project showcase -->
+## Screenshots
+
+[![Rick and a rolling boulder in a stone chamber](docs/media/screenshot-1.png)](docs/media/screenshot-1.png)
+
+Rick and a rolling boulder in a stone chamber.
+
+[![Rick crosses platforms among temple enemies](docs/media/screenshot-2.png)](docs/media/screenshot-2.png)
+
+Rick crosses platforms among temple enemies.
+
+[![Rick navigates ladders and traps in another chamber](docs/media/screenshot-3.png)](docs/media/screenshot-3.png)
+
+Rick navigates ladders and traps in another chamber.
+
+## Video
+
+[![Animated preview of Rick32 Go](docs/media/preview.gif)](https://github.com/olivierh59500/go-rick32/raw/refs/heads/main/docs/media/preview.mp4)
+
+**[Watch or download the 18-second MP4 preview with sound](https://github.com/olivierh59500/go-rick32/raw/refs/heads/main/docs/media/preview.mp4)**
+
+This short showcase combines selected passages from the Go production.
+
+Attract-mode gameplay includes the original animated credit overlay.
+
+The animated image is silent; the MP4 includes the soundtrack.
+
+<!-- End project showcase -->
+
 ## Android
 
 ```sh
